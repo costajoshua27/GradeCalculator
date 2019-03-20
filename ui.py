@@ -221,10 +221,11 @@ class CalculatorPage(tk.Frame):
         self.class_info.config(state='disabled')
 
         # Reset the assignment chooser
-        self.chosen_assignment = tk.StringVar()
-        self.chosen_assignment.set('Choose an Assignment')
-        self.assignment_chooser = tk.OptionMenu(self, self.chosen_assignment, 'Choose an Assignment')
-        self.assignment_chooser.grid(row=4,column=1, pady = 10)
+        self.chosen_category = tk.StringVar()
+        self.chosen_category.set('Choose a Category')
+        self.category_chooser = tk.OptionMenu(self, self.chosen_category, 'Choose a Category')
+        self.category_chooser.config(font=DEFAULT_FONT)
+        self.category_chooser.grid(row=4,column=1, pady = 10)
 
     def _calculate_current_grade(self):
         '''Calculates the current grade if possible, else raises an error window to the user'''
