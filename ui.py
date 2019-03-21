@@ -61,12 +61,16 @@ class MainMenuPage(tk.Frame):
         self.author.place(relx=.39, rely=.3)
 
         # Start button
-        self.calc_button = tk.Button(self, text='Start', font=DEFAULT_FONT, command=(lambda: controller.show_frame(CalculatorPage)))
-        self.calc_button.place(relx=.47, rely=.4)
+        self.calc_button = tk.Button(self, text='Start', font=DEFAULT_FONT, command=(lambda: self._change_frame_and_start_button_text(controller)))
+        self.calc_button.place(relx=.46, rely=.4)
 
         # Exit button
         self.exit_button = tk.Button(self, text='Exit', font=DEFAULT_FONT, command=controller.destroy)
-        self.exit_button.place(relx=.475, rely=.47)
+        self.exit_button.place(relx=.47, rely=.47)
+
+    def _change_frame_and_start_button_text(self, controller):
+        controller.show_frame(CalculatorPage)
+        self.calc_button.config(text='Resume')
 
 
 class CalculatorPage(tk.Frame):
@@ -141,6 +145,7 @@ class CalculatorPage(tk.Frame):
         # Create a button that calculates the grade and creates a pop up
         self.calculate_grade_button = tk.Button(self, text='Calculate grade', font=DEFAULT_FONT, command=self._calculate_current_grade)
         self.calculate_grade_button.grid(row=7, column=1, stick='e', pady=10, padx=10)
+
 
     def _create_new_category(self, category_name, category_percentage):
         '''Adds a new category to the GradeCalculator object'''
