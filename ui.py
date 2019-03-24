@@ -226,6 +226,7 @@ class CalculatorPage(tk.Frame):
         self.class_info.config(state='disabled')
 
         # Reset the assignment chooser
+        self.category_chooser.destroy()
         self.chosen_category = tk.StringVar()
         self.chosen_category.set('Choose a Category')
         self.category_chooser = tk.OptionMenu(self, self.chosen_category, 'Choose a Category')
