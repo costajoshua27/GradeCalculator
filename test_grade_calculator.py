@@ -57,3 +57,14 @@ class Test_Calculator(unittest.TestCase):
         self.assertEqual(self.calculator._calculate_category_grade('Homework'), 17.5)
         self.assertEqual(self.calculator._calculate_category_grade('Tests'), 73.6)
         self.assertAlmostEqual(self.calculator.calculate_total_grade(), .911)
+
+    def test_remove_category(self):
+        self.calculator.add_category('Homework','20')
+        self.calculator.add_category('Tests','80')
+        self.assertEqual(self.calculator.categories, {'Homework': (20, {}), 'Tests': (80, {})})
+        self.assertRaises(KeyError, self.calculator.remove_category, 'Quizzes')
+        self.calculator.remove_category('Tests')
+        self.assertEqual(self.calculator.categories, {'Homework': (20, {})})
+        self.calculator.remove_category('Homework')
+        self.assertEqual(self.calculator.categories, {})
+        

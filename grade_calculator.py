@@ -69,6 +69,16 @@ class GradeCalculator:
             del self.categories[category_name]
             raise ValueError(f'GradeCalculator.add_category: Percentage {percentage_of_grade}% of category {category_name} would make the total possible percentage {total_percentage_too_long}%, which exceeds the possible 100%')
 
+    def remove_category(self, category_name: str) -> None:
+        '''
+        Removes a category from self.categories, given a category name.
+        If given an invalid category_name, raises KeyError
+        '''
+        if category_name not in self.categories:
+            raise KeyError(f"GradeCalculator.remove_category: Category '{category_name}' is not a valid key")
+        del self.categories[category_name]
+
+
     def add_assignment(self, category_name: str, assignment_name: str, score: str) -> None:
         ''' 
         Adds a new assignment to a specified category, with a score and possible score.

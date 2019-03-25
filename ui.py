@@ -105,6 +105,10 @@ class CalculatorPage(tk.Frame):
         self.category_button = tk.Button(self, text= "Add new grade category", font=DEFAULT_FONT, command=(lambda: self._create_new_category(self.new_category.get(), self.new_category_percentage.get())))
         self.category_button.grid(row=4, column=0, pady=5)
 
+        # Create category removal capabilities
+        self.remove_category_button = tk.Button(self, text="Remove grade category", font=DEFAULT_FONT, command=(lambda: self._remove_category(self.chosen_category.get())))
+        self.remove_category_button.grid(row=5, column=0, pady=5)
+
         # Create the field that adds new assignments
         self.assignment_name_label = tk.Label(self, text='Assignment Name', font=HEADER_FONT, bg='light grey')
         self.assignment_name_label.grid(row=0,column=1)
@@ -174,6 +178,29 @@ class CalculatorPage(tk.Frame):
             tkinter.messagebox.showerror(title='Error', message=str(e))
             for entry in (self.category_percentage_entry, self.category_name_entry):
                 entry.delete(0,'end')
+
+    def _remove_category(self, category_name):
+        '''Removes a category from the GradeCalculator object'''
+        try:
+            # Remove the category from the GradeCalculator object
+            self.calculator.remove_category(category_name)
+
+            # Update the text field to reflect the changes
+            self.class_info.config(state='normal')
+            self.class_info.delete(0.0,tk.END)
+            self.class_info.insert(tk.INSERT, str(self.calculator))
+            self.class_info.config(state='disabled')
+
+            # Remove category from the drop down menu
+            self.category_chooser['menu'].delete(category_name)
+
+            # Default the drop down to be "Choose a Category"
+            self.chosen_category.set('Choose a Category')
+
+        # Catch exceptions raised by the GradeCalculator, show the explanation of the error and clear the entries
+        except Exception as e:
+            tkinter.messagebox.showerror(title='Error', message=str(e))
+
 
 
     def _create_new_assignment(self, category_name, assignment_name, score):
